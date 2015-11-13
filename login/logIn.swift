@@ -22,32 +22,36 @@ class logIn: UIViewController, PFLogInViewControllerDelegate,PFSignUpViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         
-            if(PFUser.currentUser() == nil){
-            self.logInController.fields = [PFLogInFields.UsernameAndPassword
-                , PFLogInFields.LogInButton
-                , PFLogInFields.SignUpButton
-                , PFLogInFields.PasswordForgotten
-                , PFLogInFields.DismissButton]
-            let logInlogoTitle = UILabel()
-            logInlogoTitle.text = "UniTride"
-            self.logInController.logInView?.logo = logInlogoTitle
-            self.logInController.delegate = self
-            
-            let signUplogoTitle = UILabel()
-            signUplogoTitle.text = "UniTride"
-            self.signUpViewController.signUpView?.logo = signUplogoTitle
-            self.signUpViewController.delegate = self
-            
-            self.logInController.signUpController = self.signUpViewController
+        
+        self.logInController.fields = [PFLogInFields.UsernameAndPassword
+            , PFLogInFields.LogInButton
+            , PFLogInFields.SignUpButton
+            , PFLogInFields.PasswordForgotten
+            //, PFLogInFields.DismissButton
+        ]
+        let logInlogoTitle = UILabel()
+        logInlogoTitle.text = "UniTride"
+        self.logInController.logInView?.logo = logInlogoTitle
+        self.logInController.delegate = self
+        
+        let signUplogoTitle = UILabel()
+        signUplogoTitle.text = "UniTride"
+        self.signUpViewController.signUpView?.logo = signUplogoTitle
+        self.signUpViewController.delegate = self
+        
+        self.logInController.signUpController = self.signUpViewController
+        
+        if(PFUser.currentUser() == nil){
+            self.presentViewController(self.logInController, animated:true, completion: nil)
         }
-        
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -65,6 +69,11 @@ class logIn: UIViewController, PFLogInViewControllerDelegate,PFSignUpViewControl
     
     func logInViewController(logInController: PFLogInViewController, didLogInUser user: PFUser) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        
+//        let firstViewController:first = first()
+//        self.presentViewController(firstViewController, animated: true, completion: nil)
+        
+        
     }
     
     func logInViewController(logInController: PFLogInViewController, didFailToLogInWithError error: NSError?) {
@@ -87,11 +96,11 @@ class logIn: UIViewController, PFLogInViewControllerDelegate,PFSignUpViewControl
     @IBAction func act(sender: AnyObject) {
         self.presentViewController(self.logInController, animated:true, completion: nil)
         if(PFUser.currentUser() != nil){
-            user.text = PFUser.currentUser()?.username
+            user.text = PFUser.currentUser()?.username // print the user name to label
         }
     }
     
-   
+    
     @IBAction func logout(sender: AnyObject) {
         PFUser.logOut()
         if(PFUser.currentUser() == nil){
