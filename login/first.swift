@@ -10,15 +10,46 @@ import UIKit
 import Parse
 import ParseUI
 
-class first: UIViewController, PFLogInViewControllerDelegate,PFSignUpViewControllerDelegate {
-    
+class first: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegate,PFSignUpViewControllerDelegate, UITableViewDataSource {
+  
+    // Parse setup
     var logInController = PFLogInViewController()
     var signUpViewController = PFSignUpViewController()
     
+    // To show search bar on navigation bar
+    lazy   var searchBars:UISearchBar = UISearchBar(frame: CGRectMake(30, 0, 250, 20))
+    
+    // Table View Setup
+    @IBOutlet weak var tableView: UITableView!
+    var dataArray: NSMutableArray! = NSMutableArray() // Array of data (each cell)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // To show search bar on navigation bar
+        let leftNavBarButton = UIBarButtonItem(customView: searchBars)
+        self.navigationItem.leftBarButtonItem = leftNavBarButton
         
-        // Do any additional setup after loading the view.
+        // Testing if it shows the items in table view
+        for (var i: Int = 0; i < 50; i++){
+            self.dataArray.addObject("Post")
+        }
+        self.tableView.reloadData()
+        
+        // Hide the navigation bar on swipe
+        self.navigationController?.hidesBarsOnSwipe = true
+
+    }
+    // Setup for table view
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        cell.textLabel?.text = self.dataArray[indexPath.row] as? String
+        return cell
+    }
+
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.dataArray.count
     }
     
     override func viewDidAppear(animated: Bool) {

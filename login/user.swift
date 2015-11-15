@@ -12,6 +12,7 @@ import ParseUI
 
 class user: UIViewController{
     @IBAction func logoutPressed(sender: AnyObject) {
+        // Log out and show the main page
         PFUser.logOut()
         tabBarController?.selectedIndex = 0 // open the first tab bar
         
