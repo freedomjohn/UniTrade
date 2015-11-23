@@ -9,11 +9,31 @@
 import UIKit
 import Parse
 
-class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerControllerDelegate  {
+class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate  {
 
     var i = 0;
+    
+    var post = PFObject(className: "Post")
+    
+    @IBOutlet weak var itemName: UITextField!
+    
+    @IBOutlet weak var Price: UITextField!
+    
     @IBOutlet weak var currentImage: UIImageView!
+    
+    @IBOutlet weak var itemDescription: UITextField!
+    
     let imagePicker: UIImagePickerController! = UIImagePickerController()
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,17 +104,21 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
         userPhoto["imageName"] = "\(i)"
         userPhoto["imageFile"] = imageFile
         userPhoto.saveInBackground()
+        post["image"] = imageFile
         self.dismissViewControllerAnimated( true , completion: {})
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func addPost(sender: AnyObject) {
+        
+       post["name"] = itemName.text
+        post["price"] = Price.text
+        post["description"] = itemDescription.text
+        post["category"] = "none"
+        post["user"] = PFUser.currentUser()?.objectId
+        post.saveInBackground()
+       self.view.endEditing(true)
     }
-    */
+
 
 }

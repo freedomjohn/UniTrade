@@ -29,7 +29,7 @@
         <!--POST-->
         <scene sceneID="wZH-f3-8hT">
             <objects>
-                <viewController id="OW8-aR-Oom" customClass="post" customModule="login" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OW8-aR-Oom" customClass="post" customModule="UniTrade" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fch-6E-KGU"/>
                         <viewControllerLayoutGuide type="bottom" id="Z0K-VU-wW4"/>
@@ -51,6 +51,10 @@
                                 <state key="normal" title="Add">
                                     <color key="titleColor" red="1" green="0.020828239969999999" blue="0.077325969019999996" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="addPost:" destination="OW8-aR-Oom" eventType="touchUpInside" id="aPy-SW-YYW"/>
+                                    <segue destination="Z63-P9-TtL" kind="show" id="cMZ-cj-g7D"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IoG-FA-xB9">
                                 <rect key="frame" x="168" y="74" width="97" height="30"/>
@@ -59,7 +63,10 @@
                                     <constraint firstAttribute="width" constant="97" id="p2l-FS-Eet"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                <connections>
+                                    <outlet property="delegate" destination="OW8-aR-Oom" id="Dz1-rQ-e8u"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4E-db-1d8">
                                 <rect key="frame" x="20" y="74" width="88" height="21"/>
@@ -86,7 +93,10 @@
                                 <rect key="frame" x="168" y="140" width="97" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" keyboardAppearance="alert"/>
+                                <connections>
+                                    <outlet property="delegate" destination="OW8-aR-Oom" id="fDt-9C-kHp"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kAH-fw-pQk">
                                 <rect key="frame" x="168" y="214" width="208" height="30"/>
@@ -96,7 +106,10 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                <connections>
+                                    <outlet property="delegate" destination="OW8-aR-Oom" id="n2T-u8-Vro"/>
+                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nbS-rq-qNQ">
                                 <rect key="frame" x="15" y="329" width="176" height="128"/>
@@ -151,7 +164,10 @@
                     <tabBarItem key="tabBarItem" title="POST" id="dDk-kn-WqN"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="Price" destination="v8H-Q6-dCa" id="FnQ-l6-Ckh"/>
                         <outlet property="currentImage" destination="nbS-rq-qNQ" id="3bb-Hj-v1N"/>
+                        <outlet property="itemDescription" destination="kAH-fw-pQk" id="o9M-fV-1Mj"/>
+                        <outlet property="itemName" destination="IoG-FA-xB9" id="ka8-Gv-g7C"/>
                         <outlet property="postBtn" destination="dDk-kn-WqN" id="0cd-Ad-RMw"/>
                     </connections>
                 </viewController>
@@ -162,7 +178,7 @@
         <!--User-->
         <scene sceneID="nFM-Aq-qHJ">
             <objects>
-                <viewController id="Hmb-FO-ScU" customClass="user" customModule="login" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Hmb-FO-ScU" customClass="user" customModule="UniTrade" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9e7-sl-aV9"/>
                         <viewControllerLayoutGuide type="bottom" id="xNE-hN-gxm"/>
@@ -230,7 +246,7 @@
         <!--First-->
         <scene sceneID="xhQ-uP-jc9">
             <objects>
-                <viewController id="Z63-P9-TtL" customClass="first" customModule="login" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z63-P9-TtL" customClass="first" customModule="UniTrade" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cLX-yS-cb4"/>
                         <viewControllerLayoutGuide type="bottom" id="vvn-vf-oNE"/>
@@ -239,13 +255,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qdu-uX-xTk">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qdu-uX-xTk">
                                 <rect key="frame" x="0.0" y="64" width="600" height="488"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="uNa-oJ-heg" style="IBUITableViewCellStyleDefault" id="kAZ-A0-aem">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kAZ-A0-aem" id="1BX-mM-1gv">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -307,14 +323,14 @@
         <!--View Controller-->
         <scene sceneID="udw-Vz-AaK">
             <objects>
-                <viewController id="XBV-M3-nLS" customClass="ViewController" customModule="login" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XBV-M3-nLS" customClass="ViewController" customModule="UniTrade" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="cHK-Q8-r8l">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fDO-Wm-fUn">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -322,7 +338,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7J7-9i-g2a">
-                            <rect key="frame" x="0.0" y="174" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="110" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <state key="normal" title="Save">
@@ -332,7 +348,7 @@
                         </button>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="filter Cell" id="49k-bT-Ew4">
-                                <rect key="frame" x="0.0" y="130" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="66" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="49k-bT-Ew4" id="x2q-Q2-jH6">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -377,4 +393,7 @@
     <resources>
         <image name="no-image-icon-md.png" width="299" height="267"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="cMZ-cj-g7D"/>
+    </inferredMetricsTieBreakers>
 </document>
