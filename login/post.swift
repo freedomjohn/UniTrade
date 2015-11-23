@@ -61,7 +61,7 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
         }
         myAlert.addAction(cancelAction)
         //Create and add first option action
-        let takePictureAction: UIAlertAction = UIAlertAction(title: "Take Picture", style: .Default) { action -> Void in
+        let takePictureAction: UIAlertAction = UIAlertAction(title: "Take Picture using camera", style: .Default) { action -> Void in
             //Code for launching the camera
             if
                 UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
