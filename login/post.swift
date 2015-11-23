@@ -110,7 +110,8 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
 
     
     @IBAction func addPost(sender: AnyObject) {
-        if (itemName.text == nil || Price.text == nil || itemDescription.text == nil) {
+        print(itemName.text)
+        if (itemName.text == "" || Price.text == "" || itemDescription.text == "") {
             print("hikkk")
             let myAlert = UIAlertController(title: "Please complete all of the required fields before continuing.", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
             
