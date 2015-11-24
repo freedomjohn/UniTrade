@@ -110,9 +110,7 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
 
     
     @IBAction func addPost(sender: AnyObject) {
-        print(itemName.text)
         if (itemName.text == "" || Price.text == "" || itemDescription.text == "") {
-            print("hikkk")
             let myAlert = UIAlertController(title: "Please complete all of the required fields before continuing.", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
             
             //add an "ok" button
@@ -120,13 +118,20 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
             self.presentViewController(myAlert, animated: true, completion: nil)
 
         } else {
-            print("hi")
-        post["name"] = itemName.text
-        post["price"] = Price.text
-        post["description"] = itemDescription.text
-        post["category"] = "none"
-        post["user"] = PFUser.currentUser()?.objectId
-        post.saveInBackground()
+            post["name"] = itemName.text
+            post["price"] = Price.text
+            post["description"] = itemDescription.text
+            post["category"] = "none"
+            post["user"] = PFUser.currentUser()?.objectId
+            post.saveInBackgroundWithBlock{
+                (success: Bool, error: NSError?) -> Void in
+                if (success) {
+                    self.performSegueWithIdentifier("back", sender: nil)
+                    
+                } else {
+                    
+                }
+            }
         }
        self.view.endEditing(true)
     }
