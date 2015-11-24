@@ -111,13 +111,21 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
     
     @IBAction func addPost(sender: AnyObject) {
         if (itemName.text == "" || Price.text == "" || itemDescription.text == "") {
-            let myAlert = UIAlertController(title: "Please complete all of the required fields before continuing.", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
             
+            // Showing popup alert
+            let myAlert = UIAlertController(title: "Please complete all of the required fields before continuing.", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
             //add an "ok" button
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(myAlert, animated: true, completion: nil)
-
-        } else {
+        }
+// Else if image not selected.
+//        else if(){
+        // Showing popup alert
+//        let myAlert = UIAlertController(title: "You must add an image!", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
+//        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+//        self.presentViewController(myAlert, animated: true, completion: nil)
+//        }
+        else {
             post["name"] = itemName.text
             post["price"] = Price.text
             post["description"] = itemDescription.text

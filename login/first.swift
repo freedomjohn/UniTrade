@@ -30,19 +30,20 @@ class first: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegat
         self.navigationItem.leftBarButtonItem = leftNavBarButton
         
         // Testing if it shows the items in table view
-        for (var i: Int = 0; i < 50; i++){
-            self.dataArray.addObject("Post")
-        }
-        self.tableView.reloadData()
-        
+//        for (var i: Int = 0; i < 50; i++){
+//            self.dataArray.addObject("Post")
+//        }
+//        self.tableView.reloadData()
+//        
         // Hide the navigation bar on swipe
-        self.navigationController?.hidesBarsOnSwipe = true
+//        self.navigationController?.hidesBarsOnSwipe = true
 
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -55,16 +56,16 @@ class first: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegat
         
         do{
             postArray = try query.findObjects()
-            
             let newPost = postArray[indexPath.row]
             let newImage = newPost.objectForKey("image") as! PFFile
+            cell.textLabel?.text = newPost.objectForKey("name") as? String
+            cell.detailTextLabel?.text = newPost.objectForKey("price") as? String
             newImage.getDataInBackgroundWithBlock({
                 (imageData: NSData?, error: NSError?) -> Void in
                 if(error == nil){
                     let cimage = UIImage(data:imageData!)
                     cell.imageView?.image = cimage
-                    cell.textLabel?.text = newPost.objectForKey("name") as? String
-                    cell.detailTextLabel?.text = newPost.objectForKey("price") as? String
+
                 }
             })
             
@@ -77,7 +78,13 @@ class first: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegat
 
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        var retVal = 0
+        do {
+        retVal = try PFQuery(className:"Post").findObjects().count
+        } catch {
+            print("error2")
+        }
+        return retVal // number of posts
     }
     
     override func viewDidAppear(animated: Bool) {
