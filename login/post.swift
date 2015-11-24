@@ -87,9 +87,6 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
         
         //imageFromSource.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
        
-        
-        
-
     }
     
 
@@ -118,13 +115,13 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(myAlert, animated: true, completion: nil)
         }
-// Else if image not selected.
-//        else if(){
-        // Showing popup alert
-//        let myAlert = UIAlertController(title: "You must add an image!", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
-//        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
-//        self.presentViewController(myAlert, animated: true, completion: nil)
-//        }
+            // Else if image not selected.
+            //        else if(){
+            // Showing popup alert
+            //        let myAlert = UIAlertController(title: "You must add an image!", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
+            //        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
+            //        self.presentViewController(myAlert, animated: true, completion: nil)
+            //        }
         else {
             post["name"] = itemName.text
             post["price"] = Price.text
@@ -134,13 +131,15 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
             post.saveInBackgroundWithBlock{
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
-                    self.performSegueWithIdentifier("back", sender: nil)
+                    self.tabBarController?.selectedIndex = 0 // open the first tab bar
+//                    self.performSegueWithIdentifier("back", sender: nil)
+                    
                 } else {
                     
                 }
             }
         }
-       self.view.endEditing(true)
+        self.view.endEditing(true)
     }
 
 

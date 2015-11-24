@@ -32,8 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = UIColor.redColor()
         
         // Chaning the color or navigation bar
-  //      var navigationBarAppearace = UINavigationBar.appearance()
-//        navigationBarAppearace.tintColor
+        UINavigationBar.appearance().barTintColor = UIColor.blackColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        // Set Navigation bar background image
+//        let navBgImg:UIImage = UIImage(named: "")!
+//        UINavigationBar.appearance().setBackgroundImage(navBgImg, forBarMetrics: .Default)
+
+        // Color of back button of navigation bar
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        
         return true
     }
 
