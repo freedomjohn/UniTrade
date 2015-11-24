@@ -39,17 +39,45 @@ class first: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegat
         self.navigationController?.hidesBarsOnSwipe = true
 
     }
-    // Setup for table view
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        cell.textLabel?.text = self.dataArray[indexPath.row] as? String
+        
+        let query = PFQuery(className: "Post")
+        query.orderByDescending("createdAt")
+        query.limit = 50
+        var postArray : [PFObject]
+        
+        do{
+            postArray = try query.findObjects()
+            
+            let newPost = postArray[indexPath.row]
+            let newImage = newPost.objectForKey("image") as! PFFile
+            newImage.getDataInBackgroundWithBlock({
+                (imageData: NSData?, error: NSError?) -> Void in
+                if(error == nil){
+                    let cimage = UIImage(data:imageData!)
+                    cell.imageView?.image = cimage
+                    cell.textLabel?.text = newPost.objectForKey("name") as? String
+                    cell.detailTextLabel?.text = newPost.objectForKey("price") as? String
+                }
+            })
+            
+        }catch{
+            print("error")
+        }
+        
         return cell
     }
 
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataArray.count
+        return 50
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -62,12 +90,12 @@ class first: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegat
             //, PFLogInFields.DismissButton
         ]
         let logInlogoTitle = UILabel()
-        logInlogoTitle.text = "UniTride"
+        logInlogoTitle.text = "UniTrade"
         self.logInController.logInView?.logo = logInlogoTitle
         self.logInController.delegate = self
         
         let signUplogoTitle = UILabel()
-        signUplogoTitle.text = "UniTride"
+        signUplogoTitle.text = "UniTrade"
         self.signUpViewController.signUpView?.logo = signUplogoTitle
         self.signUpViewController.delegate = self
         
@@ -105,7 +133,9 @@ class first: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegat
     }
     
     func logInViewController(logInController: PFLogInViewController, didFailToLogInWithError error: NSError?) {
-        print("Failed to Login")
+        //Show the alert
+        let alert = UIAlertView(title: "Fail to Login", message: nil, delegate: self, cancelButtonTitle: "OK")
+        alert.show()
     }
     
     //sign up
@@ -116,10 +146,14 @@ class first: UIViewController, UITableViewDelegate, PFLogInViewControllerDelegat
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     func signUpViewController(signUpController: PFSignUpViewController, didFailToSignUpWithError error: NSError?) {
-        print("fail to sign up")
+        //Show the alert
+        let alert = UIAlertView(title: "Fail to Signup", message: nil, delegate: self, cancelButtonTitle: "OK")
+        alert.show()
     }
     func signUpViewControllerDidCancelSignUp(signUpController: PFSignUpViewController) {
-        print("User dismissed sign up")
+        //Show the alert
+        let alert = UIAlertView(title: "User Dismissed Signup", message: nil, delegate: self, cancelButtonTitle: "OK")
+        alert.show()
     }
     @IBAction func act(sender: AnyObject) {
         self.presentViewController(self.logInController, animated:true, completion: nil)

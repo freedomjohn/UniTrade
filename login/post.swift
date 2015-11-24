@@ -127,7 +127,6 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
                     self.performSegueWithIdentifier("back", sender: nil)
-                    
                 } else {
                     
                 }
