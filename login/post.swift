@@ -10,10 +10,11 @@ import UIKit
 import Parse
 
 class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate  {
-
-    var i = 0;
     
-    var post = PFObject(className: "Post")
+    var i = 0;
+    var checkPhoto = false
+    
+    // var post = PFObject(className: "Post")
     
     @IBOutlet weak var itemName: UITextField!
     
@@ -40,7 +41,7 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
         imagePicker.delegate = self
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -63,6 +64,7 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
         //Create and add first option action
         let takePictureAction: UIAlertAction = UIAlertAction(title: "Take Picture using camera", style: .Default) { action -> Void in
             //Code for launching the camera
+            self.checkPhoto = true;
             if
                 UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
                     imageFromSource.sourceType = UIImagePickerControllerSourceType.Camera
@@ -77,8 +79,9 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
         //Create and add a second option action
         let choosePictureAction: UIAlertAction = UIAlertAction(title: "Choose From Camera Roll", style: .Default) { action -> Void in
             //Code for picking from camera roll
+            self.checkPhoto = true
             imageFromSource.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-             self.presentViewController(imageFromSource, animated: true, completion: nil)
+            self.presentViewController(imageFromSource, animated: true, completion: nil)
         }
         myAlert.addAction(choosePictureAction)
         
@@ -86,28 +89,29 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
         self.presentViewController(myAlert, animated: true, completion: nil)
         
         //imageFromSource.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-       
+        
     }
     
-
+    
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         var temp : UIImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         currentImage.image = temp
-        let imageData = UIImageJPEGRepresentation(temp, 0.2)
-        let imageFile = PFFile(name:"image.jpeg", data:imageData!)
+        //let imageData = UIImageJPEGRepresentation(temp, 0.2)
+        //let imageFile = PFFile(name:"image.jpeg", data:imageData!)
         
-        var userPhoto = PFObject(className:"UserPhoto")
-        userPhoto["imageName"] = "\(i)"
-        userPhoto["imageFile"] = imageFile
-        userPhoto.saveInBackground()
-        post["image"] = imageFile
+        //var userPhoto = PFObject(className:"UserPhoto")
+        //userPhoto["imageName"] = "\(i)"
+        //userPhoto["imageFile"] = imageFile
+        //userPhoto.saveInBackground()
+        //post["image"] = imageFile
         self.dismissViewControllerAnimated( true , completion: {})
     }
-
+    
     
     @IBAction func addPost(sender: AnyObject) {
-        if (itemName.text == "" || Price.text == "" || itemDescription.text == "") {
+        //var post = PFObject(className: "Post")
+        if (itemName.text == "" || Price.text == "" || itemDescription.text == "" || checkPhoto == false) {
             
             // Showing popup alert
             let myAlert = UIAlertController(title: "Please complete all of the required fields before continuing.", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
@@ -115,32 +119,38 @@ class post: UIViewController ,UINavigationControllerDelegate, UIImagePickerContr
             myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
             self.presentViewController(myAlert, animated: true, completion: nil)
         }
-            // Else if image not selected.
-            //        else if(){
-            // Showing popup alert
-            //        let myAlert = UIAlertController(title: "You must add an image!", message: nil, preferredStyle: UIAlertControllerStyle.Alert )
-            //        myAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil))
-            //        self.presentViewController(myAlert, animated: true, completion: nil)
-            //        }
         else {
+            var post = PFObject(className: "Post")
+            let imageData = UIImageJPEGRepresentation(currentImage.image!, 0.01)
+            let imageFile = PFFile(name:"image.jpeg", data:imageData!)
+            
+            var userPhoto = PFObject(className:"UserPhoto")
+            userPhoto["imageName"] = "\(i)"
+            userPhoto["imageFile"] = imageFile
+            userPhoto.saveInBackground()
+            post["image"] = imageFile
+            
             post["name"] = itemName.text
             post["price"] = Price.text
             post["description"] = itemDescription.text
             post["category"] = "none"
             post["user"] = PFUser.currentUser()?.objectId
+            itemName.text = nil
+            Price.text = nil
+            itemDescription.text = nil
             post.saveInBackgroundWithBlock{
                 (success: Bool, error: NSError?) -> Void in
                 if (success) {
                     self.tabBarController?.selectedIndex = 0 // open the first tab bar
-//                    self.performSegueWithIdentifier("back", sender: nil)
-                    
-                } else {
+                    //                    self.performSegueWithIdentifier("back", sender: nil)
                     
                 }
+                
             }
+            currentImage.image = nil 
         }
         self.view.endEditing(true)
     }
-
-
+    
+    
 }
