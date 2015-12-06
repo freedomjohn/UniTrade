@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import ParseUI
+import Bolts
 
 class feed: UITableViewController,PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
 
@@ -29,7 +30,7 @@ class feed: UITableViewController,PFLogInViewControllerDelegate, PFSignUpViewCon
         searchBar.placeholder = "Search UniTrade"
         let leftNavBarButton = UIBarButtonItem(customView: searchBar)
         self.navigationItem.leftBarButtonItem = leftNavBarButton
-        
+        self.tableView.reloadData()
         
         //
     }
@@ -60,7 +61,7 @@ class feed: UITableViewController,PFLogInViewControllerDelegate, PFSignUpViewCon
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("postcell", forIndexPath: indexPath) as! postTableViewCell
         let query = PFQuery(className: "Post")
         query.orderByDescending("createdAt")
         query.limit = 50
@@ -68,16 +69,37 @@ class feed: UITableViewController,PFLogInViewControllerDelegate, PFSignUpViewCon
         do {
             postArray = try query.findObjects()
             let newPost = postArray[indexPath.row]
-            let newImage = newPost.objectForKey("image") as! PFFile
-            cell.textLabel?.text = newPost.objectForKey("name") as? String
-            cell.detailTextLabel?.text = newPost.objectForKey("price") as? String
+            var newImage = newPost.objectForKey("image") as! PFFile
+            cell.titlename.text = newPost.objectForKey("name") as? String
+            cell.des.text = newPost.objectForKey("description") as? String
+            var imageData = try newImage.getData()
+            var finalizedImage = UIImage(data: imageData)
+            cell.imagedis.image = finalizedImage
+            
+            /*
             newImage.getDataInBackgroundWithBlock({
                 (imageData: NSData?, error: NSError?) -> Void in
                 if(error == nil){
-                    let cimage = UIImage(data:imageData!)
-                    cell.imageView?.image = cimage
+                    let cimage = UIImage(data: imageData!)
+                    cell.imagedis.image = cimage
+                   // cell.imageView!.contentMode = UIViewContentMode.ScaleAspectFit
+
                 }
             })
+
+            var imageToLoad = self.images[indexPath.row] as PFFile
+            var imageCaption = self.imageCaptions[indexPath.row] as String
+            var imageDate = self.imageDates[indexPath.row] as String
+            var imageUser = self.imageUsers[indexPath.row] as String
+            
+            var imageData = imageToLoad.getData()
+            var finalizedImage = UIImage(data: imageData!)
+            cell.postImageView.image = finalizedImage
+            cell.postCaption.text = imageCaption
+            cell.addedBy.text = imageUser
+            cell.dateLabel.text = imageDate
+*/
+            
             
         }catch{
             print("error")

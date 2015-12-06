@@ -31,6 +31,7 @@
 		3A9C1F811BF54B7B00666FFB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9C1F801BF54B7B00666FFB /* SystemConfiguration.framework */; };
 		3A9C1F831BF54B8700666FFB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9C1F821BF54B8700666FFB /* libz.tbd */; };
 		3A9C1F851BF54B9200666FFB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A9C1F841BF54B9200666FFB /* libsqlite3.tbd */; };
+		58BE112C1C13EC46003D1018 /* postTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BE112A1C13EC46003D1018 /* postTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		3A9C1F801BF54B7B00666FFB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3A9C1F821BF54B8700666FFB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		3A9C1F841BF54B9200666FFB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		58BE112A1C13EC46003D1018 /* postTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = postTableViewCell.swift; path = ../postTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,9 +160,10 @@
 		3A9C1F3D1BF5497F00666FFB /* login */ = {
 			isa = PBXGroup;
 			children = (
-				32A3967E1C045EF0003B3D95 /* feed.swift */,
 				3A9C1F3E1BF5497F00666FFB /* AppDelegate.swift */,
 				3A9C1F421BF5497F00666FFB /* Main.storyboard */,
+				58BE112A1C13EC46003D1018 /* postTableViewCell.swift */,
+				32A3967E1C045EF0003B3D95 /* feed.swift */,
 				3A9C1F451BF5497F00666FFB /* Assets.xcassets */,
 				3A9C1F471BF5497F00666FFB /* LaunchScreen.storyboard */,
 				3A9C1F4A1BF5497F00666FFB /* Info.plist */,
@@ -325,6 +328,7 @@
 				324C35BB1BF5A82900AC7BB8 /* user.swift in Sources */,
 				32A3967F1C045EF0003B3D95 /* feed.swift in Sources */,
 				3231DDA71BF58F920090FC80 /* post.swift in Sources */,
+				58BE112C1C13EC46003D1018 /* postTableViewCell.swift in Sources */,
 				3A9C1F3F1BF5497F00666FFB /* AppDelegate.swift in Sources */,
 				324C35BD1BF68C1900AC7BB8 /* filter.swift in Sources */,
 			);
